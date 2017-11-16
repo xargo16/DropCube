@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+body{
+	
+}
+
+div.footer{	
+	background-color: rgb(70, 165, 60);
+	color: white;
+	width:100%;
+	padding: 15px;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+
+
