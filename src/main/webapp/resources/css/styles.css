@@ -63,6 +63,59 @@ a:HOVER{
 	box-sizing: border-box;
 	background-color: rgb(44, 44, 44);	
 }
+.gray-box{
+	width:100%;
+	box-sizing: border-box;
+	background-color: rgb(234, 234, 234);	
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-form{
+	width:50%;
+	padding:25px;
+	margin: 0 auto;
+}
+.login-button{
+	font-size: 15px;
+	color:white;
+	display:block;
+	margin: 0 auto;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right:30px;
+	padding-left:30px;
+	
+	border-style:none;
+	border-radius:5px;
+	background-color: rgb(70, 165, 60);
+}
+
+table
+{
+	margin-bottom:15px;
+	width:100%;
+    border-collapse: collapse;
+}
+tr{
+	width:100%;
+	border-style:solid;
+	border-color:white;
+	border-width: 1px;
+}
+
+tr, td{
+	padding:15px;
+	text-align:center;
+}
 
 .footer{
 	position:absolute;
