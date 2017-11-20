@@ -1,7 +1,6 @@
-package com.dave.dropcube.domain;
+package com.dave.dropcube.entity;
 
 public class User {
-
 	public enum Role {
 		USER, ADMIN;
 	}

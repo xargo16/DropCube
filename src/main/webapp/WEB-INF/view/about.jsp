@@ -11,7 +11,9 @@
 	<jsp:include page="include/menu.jsp" />
 
 	<div class="content">
-		<jsp:include page="include/login.jsp" />
+		<h1>DropCube is the #1 hosting platform in the whole universe!</h1>
+		<h2>We promise to keep your file safe. Nothing to worry about.</h2>
+		<img src='<c:url value="/resources/img/t.png" />' alt="Troll face"/>
 	</div>
 
 

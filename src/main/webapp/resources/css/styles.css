@@ -1,123 +1,178 @@
 @CHARSET "UTF-8";
 
-body{
-	margin:0;
+/* ELEMENTS */
+body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
 	font-family: Arial;
+}
+
+table {
+	margin-bottom: 15px;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+tr {
+	width: 100%;
+	border-style: solid;
+	border-color: white;
+	border-width: 1px;
+}
+
+tr, td {
+	padding: 15px;
+	text-align: center;
+}
+
+a{
+	color:inherit;
+	text-decoration:none;
+	cursor:pointer;
+}
+
+/* --- LAYOUT ---*/
+.header {
+	width: 100%;
+	box-sizing: border-box;
+	background-color: rgb(70, 165, 60);
+}
+
+.header h1, h4 {
+	display: inline-block;
+	padding-left: 15px;
+	padding-right: 15px;
+	color: white;
+	text-align: center;
+}
+
+.header h1 {
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-color: white;
 }
 
 .menu {
 	position: sticky;
-	top:0;
+	top: 0;
+	margin-bottom: 25px;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: rgb(44, 44, 44);
+	width: 100%;
 }
 
-.menu a{
-	display:inline-block;
+.menu a {
+	display: inline-block;
 	color: white;
 	text-align: center;
 	text-decoration: none;
-	padding-top:15px;
-	padding-bottom:15px;
-	padding-left:25px;
-	padding-right:25px;
-	
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 25px;
+	padding-right: 25px;
 	transition: background 0.3s linear;
-    -moz-transition: background 0.3s linear; /* Firefox 4 */
-    -webkit-transition: background 0.3s linear; /* Safari and Chrome */
-    -o-transition: background 0.3s linear; /* Opera */
-    -ms-transition: background 0.3s linear; /* Explorer 10 */
+	-moz-transition: background 0.3s linear; /* Firefox 4 */
+	-webkit-transition: background 0.3s linear; /* Safari and Chrome */
+	-o-transition: background 0.3s linear; /* Opera */
+	-ms-transition: background 0.3s linear;
 }
 
-a:HOVER{
-	background-color:rgb(125, 125, 125);
+.menu a:hover {
+	background-color: rgb(125, 125, 125);
 }
 
-.white-right-border{
-	border-right-style: solid;
-	border-right-width: 1px;
-	border-color:white;
+.active{
+	background-color: rgb(125, 125, 125);
 }
 
-.floating-box{
-	display:inline-block;
-	
-	padding-left:15px;
-	padding-right:15px;
-}
-
-.white-centered-text{
-	color: white;
-	text-align: center;
-}
-.black-centered-text{
+.content {
 	color: black;
 	text-align: center;
 }
-
-.green-box{
-	width:100%;
-	box-sizing: border-box;
-	background-color: rgb(70, 165, 60);	
-}
-.dark-box{
-	width:100%;
-	box-sizing: border-box;
-	background-color: rgb(44, 44, 44);	
-}
-.gray-box{
-	width:100%;
-	box-sizing: border-box;
-	background-color: rgb(234, 234, 234);	
+.content img{
+	margin: 25px;
 }
 
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.login-form{
-	width:50%;
-	padding:25px;
-	margin: 0 auto;
-}
-.login-button{
-	font-size: 15px;
-	color:white;
-	display:block;
-	margin: 0 auto;
-	padding-top:10px;
-	padding-bottom:10px;
-	padding-right:30px;
-	padding-left:30px;
-	
-	border-style:none;
-	border-radius:5px;
+.footer {
+	margin-top: 50px;
+	padding: 1px;
+	width: 100%;
+	box-sizing: border-box;
 	background-color: rgb(70, 165, 60);
 }
 
-table
-{
-	margin-bottom:15px;
-	width:100%;
-    border-collapse: collapse;
-}
-tr{
-	width:100%;
-	border-style:solid;
-	border-color:white;
-	border-width: 1px;
+.footer h3, h5 {
+	color: white;
+	text-align: center;
 }
 
-tr, td{
-	padding:15px;
-	text-align:center;
+
+/* FORMS */
+
+form {
+	width: 50%;
+	padding: 25px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	background-color: rgb(234, 234, 234);
 }
 
-.footer{
-	position:absolute;
-	bottom:0px;
+input[type=submit] {
+	font-size: 15px;
+	color: white;
+	display: block;
+	margin: 0 auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 30px;
+	padding-left: 30px;
+	border-style: none;
+	border-radius: 5px;
+	background-color: rgb(70, 165, 60);
+	
+	transition: background 0.15s linear;
+	-moz-transition: background 0.15s linear; /* Firefox 4 */
+	-webkit-transition: background 0.15s linear; /* Safari and Chrome */
+	-o-transition: background 0.15s linear; /* Opera */
+	-ms-transition: background 0.15s linear;
+	
+	cursor:pointer;
+}
+
+input[type=submit]:hover {
+	background-color: rgb(107, 198, 98);
+}
+
+input[type='checkbox'] {
+	-moz-appearance:initial;
+    -webkit-appearance:initial;
+    width:30px;
+    height:30px;
+    background-color:white;
+    border-radius:5px;
+    border:1px solid gray;
+   
+    transition: background 0.15s linear;
+	-moz-transition: background 0.15s linear; /* Firefox 4 */
+	-webkit-transition: background 0.15s linear; /* Safari and Chrome */
+	-o-transition: background 0.15s linear; /* Opera */
+	-ms-transition: background 0.15s linear;
+	
+   
+    cursor:pointer;
+}
+input[type='checkbox']:checked {
+	background-color: rgb(70, 165, 60);
+}
+
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
 }
