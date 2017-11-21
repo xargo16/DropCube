@@ -12,32 +12,31 @@
 
 	<div class="content">
 		<div>
-			<form>
+			<form action="/DropCube/register" method="POST">
 				<table>
 					<tr>
 						<td>First name:</td>
 						<td><input type="text" placeholder="First name..."
 							name="firstName"></td>
 					</tr>
-					
+
 					<tr>
 						<td>Last name:</td>
 						<td><input type="text" placeholder="Last name..."
 							name="lastName"></td>
 					</tr>
-					
+
 					<tr>
 						<td>Email:</td>
-						<td><input type="text" placeholder="Email..."
-							name="email"></td>
+						<td><input type="text" placeholder="Email..." name="email"></td>
 					</tr>
-					
+
 					<tr>
 						<td>Phone number(Optional):</td>
 						<td><input type="text" placeholder="Phone number..."
 							name="phoneNumber"></td>
 					</tr>
-					
+
 					<tr>
 						<td>Password:</td>
 						<td><input type="password" placeholder="Password..."
@@ -45,8 +44,7 @@
 					</tr>
 					<tr>
 						<td>Upgrade to premium account!:</td>
-						<td><input type="checkbox"
-							name="premiumAccount"></td>
+						<td><input type="checkbox" name="premiumAccount"></td>
 					</tr>
 
 				</table>
@@ -58,9 +56,9 @@
 
 
 	<jsp:include page="include/footer.jsp" />
-	
-	<script>
 
+	<script>
+		
 	</script>
 </body>
 </html>
