@@ -1,15 +1,20 @@
-<h1>We are the best file hosting
-	platform on the market!</h1>
-<h3>We don't provide any kind of
-	security, but do not worry... We hope for the best!</h3>
+<h1>We are the best file hosting platform on the market!</h1>
 
 <div>
-	<form>
+
+	<c:if test="${err!=null}">
+		<h3 class="error">${err}</h3>
+	</c:if>
+	
+	<c:if test="${param.act eq 'reg'}">
+        <h3 class="success">User Registered Successfully! Please login</h3>
+    </c:if>  
+
+	<form action="/DropCube/login" method="POST">
 		<table>
 			<tr>
 				<td>Email:</td>
-				<td><input type="text" placeholder="Email..."
-					name="username"></td>
+				<td><input type="text" placeholder="Email..." name="email"></td>
 			</tr>
 			<tr>
 				<td>Password:</td>

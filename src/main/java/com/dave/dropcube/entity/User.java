@@ -5,11 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
+@NamedQuery(query = "Select u from User u where u.email = :email AND u.password = :password", name = "login")
 public class User {
 	public enum Role {
 		USER, ADMIN;
@@ -21,17 +22,15 @@ public class User {
 
 	@Column(nullable = false)
 	private String firstName;
-	
+
 	@Column(nullable = false)
 	private String lastName;
-	
+
 	@Column(nullable = false)
 	private String password;
-	
-	@Column(nullable = false)
-	private String email;
 
-	private String phoneNumber;
+	@Column(nullable = false, unique = true)
+	private String email;
 
 	@Column(name = "role")
 	private Role role = Role.USER;
@@ -71,14 +70,6 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public Role getRole() {
 		return role;
 	}
@@ -93,6 +84,14 @@ public class User {
 
 	public void setPremiumAccount(boolean premiumAccount) {
 		this.premiumAccount = premiumAccount;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", password=" + password
+				+ ", email=" + email + ", role=" + role + ", premiumAccount="
+				+ premiumAccount + "]";
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.dave.dropcube.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +23,27 @@ public class UserDAOImpl implements UserDAO {
 		entityManager.persist(user);
 	}
 
+	/**
+	 * This method uses JPQL to find user from database by its email and
+	 * password
+	 */
 	public User login(String email, String password) {
-		return null;
+		Query query = entityManager.createNamedQuery("login");
+		query.setParameter("email", email);
+		query.setParameter("password", password);
+
+		User user = null;
+		try {
+			Object object = query.getSingleResult();
+			user = (User) object;
+		} catch (NoResultException n) {
+			/**
+			 * Making sure that when there is no matching result ugly exception
+			 * won't be thrown in a web browser
+			 */
+		}
+
+		return user;
 	}
 
 }

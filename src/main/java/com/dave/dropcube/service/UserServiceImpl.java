@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dave.dropcube.dao.UserDAO;
 import com.dave.dropcube.entity.User;
+import com.dave.dropcube.exception.InvalidRegistrationDataException;
+import com.dave.dropcube.util.RegistrationFormValidator;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -13,11 +15,20 @@ public class UserServiceImpl implements UserService {
 	UserDAO userDAO;
 
 	@Transactional
-	public void register(User user) {
+	public void register(User user) throws InvalidRegistrationDataException {
+		RegistrationFormValidator registrationFormValidator = new RegistrationFormValidator();
+
+		assignRoleToUser(user, User.Role.USER);
+		registrationFormValidator.validateRegistrationFormData(user);
+
 		userDAO.save(user);
 	}
 
-	@Transactional(readOnly=true)
+	private void assignRoleToUser(User user, User.Role role) {
+		user.setRole(role);
+	}
+
+	@Transactional(readOnly = true)
 	public User login(String email, String password) {
 		return userDAO.login(email, password);
 	}

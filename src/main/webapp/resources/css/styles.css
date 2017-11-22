@@ -176,3 +176,11 @@ input[type=text], input[type=password] {
 	border-radius: 4px;
 	box-sizing: border-box;
 }
+
+/* Various */
+.error{
+    color: #FF0000;
+}
+.success{
+    color: rgb(70, 165, 60);
+}
