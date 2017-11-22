@@ -36,10 +36,10 @@ public class UserController {
 		
 		if(user == null){
 			model.addAttribute("err", "Invalid email or password");
-			return "
+			return "index";
 		}
 		else{
-			return "redirect:index?act=reg";
+			return "index";
 		}
 	}
 
@@ -72,7 +72,7 @@ public class UserController {
 			return "reg-form";
 		}
 
-		return "index";
+		return "redirect:index?act=reg";
 	}
 
 	@RequestMapping(value = "/about")
