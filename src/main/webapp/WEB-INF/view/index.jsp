@@ -11,7 +11,9 @@
 	<jsp:include page="include/menu.jsp" />
 
 	<div class="content">
-		<jsp:include page="include/login.jsp" />
+		<div class="centered">
+			<jsp:include page="include/login.jsp" />
+		</div>
 	</div>
 
 

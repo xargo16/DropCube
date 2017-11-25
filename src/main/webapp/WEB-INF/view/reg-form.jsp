@@ -10,13 +10,13 @@
 	<jsp:include page="include/header.jsp" />
 	<jsp:include page="include/menu.jsp" />
 
-	<div class="content">
-		<div>
+	<div class="content register">
+		<div class="centered">
 			<c:if test="${err!=null}">
 				<h3 class="error">${err}</h3>
 			</c:if>
 
-			<form action="/DropCube/register" method="POST">
+			<form action="/DropCube/register" method="POST" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<td>First name:</td>
@@ -50,6 +50,7 @@
 				<input type="submit" value="Register">
 
 			</form>
+		
 		</div>
 	</div>
 

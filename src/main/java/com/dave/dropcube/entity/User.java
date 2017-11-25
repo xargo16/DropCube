@@ -38,6 +38,14 @@ public class User {
 	@Column(name = "premium_account")
 	private boolean premiumAccount = false;
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

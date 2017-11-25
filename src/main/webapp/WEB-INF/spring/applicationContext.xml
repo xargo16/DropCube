@@ -61,4 +61,10 @@
 	<!-- enable transactions based on annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
+
+	<!-- For uploading files to the server -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+
 </beans>

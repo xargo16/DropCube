@@ -11,9 +11,11 @@
 	<jsp:include page="include/menu.jsp" />
 
 	<div class="content">
-		<h1>DropCube is the #1 hosting platform in the whole universe!</h1>
-		<h2>We promise to keep your file safe. Nothing to worry about.</h2>
-		<img src='<c:url value="/resources/img/t.png" />' alt="Troll face"/>
+		<div class="centered">
+			<h1>DropCube is the #1 hosting platform in the whole universe!</h1>
+			<h2>We promise to keep your file safe. Nothing to worry about.</h2>
+			<img src='<c:url value="/resources/img/t.png" />' alt="Troll face" />
+		</div>
 	</div>
 
 

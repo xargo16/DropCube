@@ -1,17 +1,17 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h1>We are the best file hosting platform on the market!</h1>
+<h1>Enter your credentials</h1>
 
 <div>
 
 	<c:if test="${err!=null}">
 		<h3 class="error">${err}</h3>
 	</c:if>
-	
-	<c:if test="${param.act eq 'reg'}">
-        <h3 class="success">User Registered Successfully. Please login</h3>
-    </c:if>  
 
+	<c:if test="${param.act eq 'reg'}">
+		<h3 class="success">User Registered Successfully. Please login</h3>
+	</c:if>
+	
 	<form action="/DropCube/login" method="POST">
 		<table>
 			<tr>

@@ -1,6 +1,11 @@
 @CHARSET "UTF-8";
 
 /* ELEMENTS */
+
+html{
+	height: 100%;
+}
+
 body {
 	height: 100%;
 	padding: 0;
@@ -55,12 +60,11 @@ a{
 
 .menu {
 	position: sticky;
+	z-index:1;
 	top: 0;
-	margin-bottom: 25px;
 	width: 100%;
 	box-sizing: border-box;
 	background-color: rgb(44, 44, 44);
-	width: 100%;
 }
 
 .menu a {
@@ -88,15 +92,94 @@ a{
 }
 
 .content {
+	position:relative;
+	min-height: 80vh;
 	color: black;
 	text-align: center;
 }
 .content img{
 	margin: 25px;
+	
+}
+
+.centered{
+	width: 50%;
+	position:absolute;
+  	top: 45%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+
+
+.columns {
+	height: 100%;
+	color: black;
+	text-align: center;
+}
+
+/* Styles for columns in user_dashboard.jsp*/
+.columns .header{
+	position:fixed;
+	top:0;
+	left:0;
+	width: 20%;
+	background-color: rgb(70, 165, 60);
+	z-index:1;
+}
+
+/* Column with files uploaded by user */
+.left-column{
+	position:relative;
+	top:10%;
+	min-height:90%;
+	width:20%;
+	color: white;
+	background-color: rgb(56, 132, 48);
+	
+}
+.left-column .no-files{
+	color: rgb(211, 211, 211);
+	position:absolute;
+  	top: 45%;
+  	transform: translateY(-50%);
+}
+
+.left-column .file h3{
+	margin-bottom:0;
+}
+
+
+/* Column with description of selected file */
+.middle-column{
+	position:fixed;
+	top:0;
+	left:20%;
+	width:60%;
+	height:100%;
+	border-right:solid 1px rgb(211, 211, 211);
+}
+
+.middle-column .no-files{
+	position:absolute;
+  	top: 45%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+    color: rgb(211, 211, 211);
+}
+
+
+/* Menu */
+.right-column{
+	position:fixed;
+	top:0;
+	right:0;
+	width:20%;
+	height:100%;
+	background-color: rgb(234, 234, 234);
+	
 }
 
 .footer {
-	margin-top: 50px;
 	padding: 1px;
 	width: 100%;
 	box-sizing: border-box;
@@ -108,15 +191,55 @@ a{
 	text-align: center;
 }
 
-
 /* FORMS */
 
 form {
-	width: 50%;
+	width: 100%;
 	padding: 25px;
 	margin: 0 auto;
 	box-sizing: border-box;
 	background-color: rgb(234, 234, 234);
+}
+
+.register {
+	margin-top:3%;
+}
+
+/* Dirty hack was required to style upload button */
+.upload-btn-wrapper{
+	position:relative;
+    overflow: hidden;
+}
+.upload-span{
+	font-size: 15px;
+	color: white;
+	display: block;
+	margin: 1px;
+	padding: 15px;
+	border-style:none;
+	border-radius:5px;
+	background-color: rgb(70, 165, 60);
+	
+}
+
+.upload-btn-wrapper input[type=file] {
+	font-size:100px;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity: 0;
+}
+
+input[type=search]{
+	background-color:white;
+	
+	width: 90%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
 }
 
 input[type=submit] {
@@ -143,6 +266,13 @@ input[type=submit] {
 
 input[type=submit]:hover {
 	background-color: rgb(107, 198, 98);
+}
+
+input[value=Logout]{
+	position:absolute;
+	bottom:5%;
+  	left: 50%;
+  	transform: translate(-50%);
 }
 
 input[type='checkbox'] {
@@ -183,4 +313,9 @@ input[type=text], input[type=password] {
 }
 .success{
     color: rgb(70, 165, 60);
+}
+
+.files{
+	background-color: rgb(234, 234, 234);
+	border-right: solid 1px black;
 }
