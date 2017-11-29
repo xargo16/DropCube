@@ -3,30 +3,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='<c:url value="/resources/js/files.js" />'></script>
 <link rel="stylesheet" type="text/css"
 	href='<c:url value="/resources/css/styles.css" />' />
 </head>
 <body>
 
 	<div class="columns">
-
-		<div class="header">
-			<h1>DropCube</h1>
-		</div>
-
 		<div class="left-column">
-			<jsp:include page="include/files.jsp" />
+			<div class="header">
+				<h1>DropCube</h1>
+			</div>
+			
+			<div class="list-of-files">
+				<c:if test="${files == null}">
+					<h3 class="no-files">You didn't upload any files yet</h3>
+				</c:if>
+
+				<c:forEach items="${files}" var="file">
+					<div><input type="checkbox" class="file-checkbox" id="check${file.fileId}"/></div>
+					<div class="file" id="${file.fileId}">
+						<input type="hidden" name="data-title" value="${file.name }"/>
+						<p>Id: ${file.fileId }</p>
+					</div>
+					<br>
+				</c:forEach>
+
+			</div>
 		</div>
 
 		<div class="middle-column">
-			<c:if test="${files == null}">
-				<h2 class="no-files">Click any file on the left for details!</h2>
-			</c:if>
+
+			<div class="file-description-wrapper">
+				<div class="file-title-container">
+					<h1 id="file-title"></h1>
+				</div>
+				<div class="file-data-container"></div>
+				<div class="file-meta-data-container"></div>
+			</div>
+
+			<h2 class="no-file-selected">Click any file on the left for
+				details!</h2>
+
 		</div>
 		<div class="right-column">
 
 			<input type="search" name="search" placeholder="Search...">
-
 
 			<form action="/DropCube/user/addFile" method="POST"
 				enctype="multipart/form-data">
@@ -34,14 +58,19 @@
 					<h3 class="error">${err}</h3>
 				</c:if>
 				<div class="upload-btn-wrapper">
-					<span class="upload-span">Upload files</span> 
-					<input type="file" onchange="this.form.submit()"
-						name="file" />
+					<span class="upload-span">Upload files</span> <input type="file"
+						id="id-upload-btn" name="file" />
 				</div>
 			</form>
 			
+			<div class="hidden" id="download-delete-btn-container">
+				<h3 id="number-of-files-header">No files</h3>
+				<input type="button" id="download-btn" value="Download" /> <br> 
+				<input type="button" id="delete-btn" value="Delete" />
+			</div>
+		
 			<form action="/DropCube/logout" method="POST">
-				<input type="submit" value="Logout"/>
+				<input type="submit" value="Logout" />
 			</form>
 		</div>
 	</div>

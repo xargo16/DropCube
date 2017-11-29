@@ -15,9 +15,9 @@ import javax.persistence.Table;
 public class UserFile {
 	@ManyToOne
 	private User user;
-	
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int fileId;
 
 	@Column(nullable = false)
@@ -35,6 +35,14 @@ public class UserFile {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public int getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(int fileId) {
+		this.fileId = fileId;
 	}
 
 	public Date getDateOfUpload() {
@@ -60,7 +68,5 @@ public class UserFile {
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
-	
-	
 
 }

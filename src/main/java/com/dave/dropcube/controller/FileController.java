@@ -22,6 +22,7 @@ public class FileController {
 			m.addAttribute("err", "Choose proper file!");
 			return "user_dashboard"; //redirect to dashboard and show error
 		}
-		return "user_dashboard";
+		return "redirect:/user/dashboard";
 	}
+	
 }

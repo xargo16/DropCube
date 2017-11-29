@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,17 @@ public class FileServiceImpl implements FileService{
 	}
 
 	public UserFile[] getAllFiles(int userId) {
-		return null;
+		UserFile[] user = new UserFile[5];
+		
+		for(int i = 0; i < user.length; i++){
+			user[i] = new UserFile();
+			String dupa = "DUPA";
+			user[i].setContent(dupa.getBytes());
+			user[i].setDateOfUpload(new Date());
+			user[i].setName("DUPA " + i + ".txt");
+			user[i].setFileId(i);
+		}
+		return user;
 	}
 
 	public void deleteFile(int fileId) {

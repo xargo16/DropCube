@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dave.dropcube.dao.UserDAO;
 import com.dave.dropcube.entity.User;
+import com.dave.dropcube.entity.UserFile;
 import com.dave.dropcube.exception.InvalidRegistrationDataException;
 import com.dave.dropcube.util.RegistrationFormValidator;
 
@@ -13,6 +14,9 @@ import com.dave.dropcube.util.RegistrationFormValidator;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	FileService fileService;
 
 	@Transactional
 	public void register(User user) throws InvalidRegistrationDataException {
@@ -31,6 +35,10 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	public User login(String email, String password) {
 		return userDAO.login(email, password);
+	}
+
+	public UserFile[] getUserFiles(User user) {
+		return fileService.getAllFiles(user.getUserId());
 	}
 
 }

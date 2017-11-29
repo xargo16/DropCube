@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.dave.dropcube.command.LoginCommand;
 import com.dave.dropcube.command.UserCommand;
 import com.dave.dropcube.entity.User;
+import com.dave.dropcube.entity.UserFile;
 import com.dave.dropcube.exception.InvalidRegistrationDataException;
 import com.dave.dropcube.service.UserService;
 
@@ -101,10 +102,12 @@ public class UserController {
 	 * This page is visible to logged in users
 	 */
 	@RequestMapping("/user/dashboard")
-	public String userDashboard(HttpSession session){
+	public String userDashboard(HttpSession session, Model model){
 		if(!isUserLoggedIn(session))
 			return "redirect:index";
 		
+		UserFile[] userFiles = userService.getUserFiles((User)session.getAttribute("user"));
+		model.addAttribute("files", userFiles);
 		return "user_dashboard";
 	}
 	
