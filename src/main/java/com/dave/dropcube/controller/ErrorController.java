@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HttpErrorHandler {
+public class ErrorController {
 	@RequestMapping(value = "/404")
 	public String pageNotFound(){
 		return "redirect:/";
@@ -13,5 +13,15 @@ public class HttpErrorHandler {
 	@RequestMapping(value = "/500")
 	public String internalServerError(){
 		return "error";
+	}
+	
+	@RequestMapping(value = "/cookies")
+	public String cookiesDisabled(){
+		return "cookies";
+	}
+	
+	@RequestMapping(value = "/js")
+	public String javaScriptDisabled(){
+		return "js";
 	}
 }

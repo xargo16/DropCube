@@ -9,13 +9,12 @@
 <body>
 	<jsp:include page="include/header.jsp" />
 	<jsp:include page="include/menu.jsp" />
-	<jsp:include page="include/no_javascript.jsp" />
-	
-	<div id="content" class="content">
+
+	<div class="content">
 		<div class="centered">
-			<h1>DropCube is the #1 hosting platform in the whole universe!</h1>
-			<h2>We promise to keep your files safe. Nothing to worry about.</h2>
-			<img width="60%" height="auto" src='<c:url value="/resources/img/t.png" />' alt="Troll face" />
+			<br>
+			<h1>Please turn on JavaScript to use our website!</h1>
+			<img width="60%" height="auto" src='<c:url value="/resources/img/cookie.png" />' alt="Enable cookies" />
 		</div>
 	</div>
 

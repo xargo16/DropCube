@@ -9,8 +9,9 @@
 <body>
 	<jsp:include page="include/header.jsp" />
 	<jsp:include page="include/menu.jsp" />
-
-	<div class="content register">
+	<jsp:include page="include/no_javascript.jsp" />
+	
+	<div id="content" class="content register">
 		<div class="centered">
 			<c:if test="${err!=null}">
 				<h3 class="error">${err}</h3>

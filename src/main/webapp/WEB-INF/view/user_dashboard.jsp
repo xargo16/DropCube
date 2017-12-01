@@ -10,6 +10,13 @@
 	href='<c:url value="/resources/css/styles.css" />' />
 </head>
 <body>
+	<noscript>
+		<style>
+			body {
+				display: none;
+			}
+		</style>
+	</noscript>
 
 	<div class="columns">
 		<div class="left-column">
@@ -63,7 +70,7 @@
 					<script>
 						$('#upload-error').delay(5000).fadeOut('slow');
 					</script>
-				</c:if>	
+				</c:if>
 				<c:if test="${param.act == 'success' }">
 					<h3 class="success" id="upload-complete">Upload complete!</h3>
 

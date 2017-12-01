@@ -1,7 +1,11 @@
 package com.dave.dropcube.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +43,8 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute LoginCommand loginCommand, Model model,
-			HttpSession session) {
+			HttpSession session) throws IOException {
+
 		String email = loginCommand.getEmail();
 		String password = loginCommand.getPassword();
 		UserEntity user = userService.login(email, password);
@@ -59,18 +64,18 @@ public class UserController {
 		session.setAttribute("userRole", user.getRole());
 
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession session) {
 		session.invalidate();
 
 		return "redirect:/index?act=lout";
-		
+
 	}
 
 	@RequestMapping(value = "/register")
 	public String registerForm(HttpSession session) {
-		if(isUserLoggedIn(session))
+		if (isUserLoggedIn(session))
 			return "redirect:/user";
 		return "reg-form";
 	}
@@ -96,32 +101,33 @@ public class UserController {
 			return "reg-form";
 		}
 
-		return "redirect:/index?act=reg"; // act=reg flag is used to show message
+		return "redirect:/index?act=reg"; // act=reg flag is used to show
+											// message
 											// to user in index page
 	}
-	
+
 	/*
 	 * This page is visible to logged in users
 	 */
 	@RequestMapping("/user")
-	public String userDashboard(HttpSession session, Model model){
-		if(!isUserLoggedIn(session))
+	public String userDashboard(HttpSession session, Model model) {
+		if (!isUserLoggedIn(session))
 			return "redirect:/index";
-		
-		List<FileEntity> userFiles = userService.getUserFiles((UserEntity)session.getAttribute("user"));
-		if(userFiles.size() > 0)
+
+		List<FileEntity> userFiles = userService
+				.getUserFiles((UserEntity) session.getAttribute("user"));
+		if (userFiles.size() > 0)
 			model.addAttribute("files", userFiles);
 		return "user_dashboard";
 	}
-	
-	
-	private boolean isUserLoggedIn(HttpSession session){
-		if(session.getAttribute("user") != null)
+
+	private boolean isUserLoggedIn(HttpSession session) {
+		if (session.getAttribute("user") != null)
 			return true;
 		return false;
 	}
-	
-	@RequestMapping(value = "/about")	
+
+	@RequestMapping(value = "/about")
 	public String about() {
 		return "about";
 	}

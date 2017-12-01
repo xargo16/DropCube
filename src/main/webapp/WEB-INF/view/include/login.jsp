@@ -7,7 +7,7 @@
 	<c:if test="${err!=null}">
 		<h3 class="error">${err}</h3>
 	</c:if>
-	
+
 	<form action="/DropCube/login" method="POST">
 		<table>
 			<tr>
@@ -21,7 +21,7 @@
 			</tr>
 
 		</table>
-		<input type="submit" value="Login">
+		<input type="submit" value="Login" id="login-button">
 
 	</form>
 </div>
