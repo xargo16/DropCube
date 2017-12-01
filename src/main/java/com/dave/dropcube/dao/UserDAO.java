@@ -1,10 +1,10 @@
 package com.dave.dropcube.dao;
 
-import com.dave.dropcube.entity.User;
+import com.dave.dropcube.entity.UserEntity;
 
 public interface UserDAO {
-	public void save(User user);
+	public void save(UserEntity user);
 
-	public User login(String email, String password);
+	public UserEntity login(String email, String password);
 
 }

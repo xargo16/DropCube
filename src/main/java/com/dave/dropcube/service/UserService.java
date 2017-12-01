@@ -1,14 +1,16 @@
 package com.dave.dropcube.service;
 
-import com.dave.dropcube.entity.User;
-import com.dave.dropcube.entity.UserFile;
+import java.util.List;
+
+import com.dave.dropcube.entity.FileEntity;
+import com.dave.dropcube.entity.UserEntity;
 import com.dave.dropcube.exception.InvalidRegistrationDataException;
 
 public interface UserService {
 
-	public void register(User user) throws InvalidRegistrationDataException;
+	public void register(UserEntity user) throws InvalidRegistrationDataException;
 
-	public User login(String email, String password);
+	public UserEntity login(String email, String password);
 	
-	public UserFile[] getUserFiles(User user);
+	public List<FileEntity> getUserFiles(UserEntity user);
 }

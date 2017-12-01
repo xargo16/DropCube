@@ -12,9 +12,9 @@
 
 	<div class="content">
 		<div class="centered">
-			<h1>DropCube is the #1 hosting platform in the whole universe!</h1>
-			<h2>We promise to keep your file safe. Nothing to worry about.</h2>
-			<img width="60%" height="auto" src='<c:url value="/resources/img/t.png" />' alt="Troll face" />
+			<br>
+			<h1>Sorry, but it seems that something went wrong.</h1>
+			<img width="60%" height="auto" src='<c:url value="/resources/img/error.png" />' alt="error" />
 		</div>
 	</div>
 

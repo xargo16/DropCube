@@ -1,5 +1,7 @@
 package com.dave.dropcube.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.dave.dropcube.command.LoginCommand;
 import com.dave.dropcube.command.UserCommand;
-import com.dave.dropcube.entity.User;
-import com.dave.dropcube.entity.UserFile;
+import com.dave.dropcube.entity.FileEntity;
+import com.dave.dropcube.entity.UserEntity;
 import com.dave.dropcube.exception.InvalidRegistrationDataException;
 import com.dave.dropcube.service.UserService;
 
@@ -29,7 +31,7 @@ public class UserController {
 	@RequestMapping(value = { "/", "/index" })
 	public String index(HttpSession session) {
 		if (isUserLoggedIn(session)) {
-			return "redirect:user/dashboard";
+			return "redirect:/user";
 		}
 
 		return "index";
@@ -40,7 +42,7 @@ public class UserController {
 			HttpSession session) {
 		String email = loginCommand.getEmail();
 		String password = loginCommand.getPassword();
-		User user = userService.login(email, password);
+		UserEntity user = userService.login(email, password);
 
 		if (user == null) {
 			model.addAttribute("err", "Invalid email or password");
@@ -51,7 +53,7 @@ public class UserController {
 		}
 	}
 
-	private void addUserInSession(User user, HttpSession session) {
+	private void addUserInSession(UserEntity user, HttpSession session) {
 		session.setAttribute("user", user);
 		session.setAttribute("userId", user.getUserId());
 		session.setAttribute("userRole", user.getRole());
@@ -62,14 +64,14 @@ public class UserController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 
-		return "redirect:index?act=lout";
+		return "redirect:/index?act=lout";
 		
 	}
 
 	@RequestMapping(value = "/register")
 	public String registerForm(HttpSession session) {
 		if(isUserLoggedIn(session))
-			return "redirect:user/dashboard";
+			return "redirect:/user";
 		return "reg-form";
 	}
 
@@ -94,20 +96,21 @@ public class UserController {
 			return "reg-form";
 		}
 
-		return "redirect:index?act=reg"; // act=reg flag is used to show message
+		return "redirect:/index?act=reg"; // act=reg flag is used to show message
 											// to user in index page
 	}
 	
 	/*
 	 * This page is visible to logged in users
 	 */
-	@RequestMapping("/user/dashboard")
+	@RequestMapping("/user")
 	public String userDashboard(HttpSession session, Model model){
 		if(!isUserLoggedIn(session))
-			return "redirect:index";
+			return "redirect:/index";
 		
-		UserFile[] userFiles = userService.getUserFiles((User)session.getAttribute("user"));
-		model.addAttribute("files", userFiles);
+		List<FileEntity> userFiles = userService.getUserFiles((UserEntity)session.getAttribute("user"));
+		if(userFiles.size() > 0)
+			model.addAttribute("files", userFiles);
 		return "user_dashboard";
 	}
 	

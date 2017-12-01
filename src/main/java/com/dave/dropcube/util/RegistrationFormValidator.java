@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.dave.dropcube.entity.User;
+import com.dave.dropcube.entity.UserEntity;
 import com.dave.dropcube.exception.InvalidRegistrationDataException;
 
 /**
@@ -22,7 +22,7 @@ public class RegistrationFormValidator {
 	 */
 	private List<String> errors = new ArrayList<String>();
 
-	public void validateRegistrationFormData(User user)
+	public void validateRegistrationFormData(UserEntity user)
 			throws InvalidRegistrationDataException {
 		checkFirstName(user.getFirstName());
 		checkLastName(user.getLastName());

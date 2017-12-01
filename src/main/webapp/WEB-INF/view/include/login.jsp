@@ -7,10 +7,6 @@
 	<c:if test="${err!=null}">
 		<h3 class="error">${err}</h3>
 	</c:if>
-
-	<c:if test="${param.act eq 'reg'}">
-		<h3 class="success">User Registered Successfully. Please login</h3>
-	</c:if>
 	
 	<form action="/DropCube/login" method="POST">
 		<table>

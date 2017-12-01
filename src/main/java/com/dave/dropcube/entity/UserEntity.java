@@ -10,8 +10,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(query = "Select u from User u where u.email = :email AND u.password = :password", name = "login")
-public class User {
+@NamedQuery(query = "SELECT u FROM UserEntity u WHERE u.email = :email AND u.password = :password", name = "login")
+public class UserEntity {
 	public enum Role {
 		USER, ADMIN;
 	}

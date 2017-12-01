@@ -16,17 +16,20 @@
 			<div class="header">
 				<h1>DropCube</h1>
 			</div>
-			
+
 			<div class="list-of-files">
 				<c:if test="${files == null}">
 					<h3 class="no-files">You didn't upload any files yet</h3>
 				</c:if>
 
 				<c:forEach items="${files}" var="file">
-					<div><input type="checkbox" class="file-checkbox" id="check${file.fileId}"/></div>
+					<div>
+						<input type="checkbox" class="file-checkbox"
+							id="check${file.fileId}" />
+					</div>
 					<div class="file" id="${file.fileId}">
-						<input type="hidden" name="data-title" value="${file.name }"/>
-						<p>Id: ${file.fileId }</p>
+						<input type="hidden" name="data-title" value="${file.name }" />
+						<p>${file.name }</p>
 					</div>
 					<br>
 				</c:forEach>
@@ -52,23 +55,50 @@
 
 			<input type="search" name="search" placeholder="Search...">
 
+
 			<form action="/DropCube/user/addFile" method="POST"
 				enctype="multipart/form-data">
-				<c:if test="${err != null}">
-					<h3 class="error">${err}</h3>
+				<c:if test="${param.err == 'upload'}">
+					<h3 class="error" id="upload-error">Error occured!</h3>
+					<script>
+						$('#upload-error').delay(5000).fadeOut('slow');
+					</script>
+				</c:if>	
+				<c:if test="${param.act == 'success' }">
+					<h3 class="success" id="upload-complete">Upload complete!</h3>
+
+					<script>
+						$('#upload-complete').delay(5000).fadeOut('slow');
+					</script>
+
 				</c:if>
+
 				<div class="upload-btn-wrapper">
 					<span class="upload-span">Upload files</span> <input type="file"
-						id="id-upload-btn" name="file" />
+						id="id-upload-btn" name="file" multiple />
 				</div>
 			</form>
-			
+
+			<c:if test="${param.delete != null}">
+				<h3 class="success" id="delete-success">
+					<c:out value='${param.delete }' />
+				</h3>
+				<script>
+					$('#delete-success').delay(5000).fadeOut('slow');
+				</script>
+			</c:if>
+			<c:if test="${param.err == 'download'}">
+				<h3 class="error" id="download-error">Error occured!</h3>
+				<script>
+					$('#download-error').delay(5000).fadeOut('slow');
+				</script>
+			</c:if>
 			<div class="hidden" id="download-delete-btn-container">
 				<h3 id="number-of-files-header">No files</h3>
-				<input type="button" id="download-btn" value="Download" /> <br> 
+				<input type="button" id="download-btn" value="Download" /> <br>
 				<input type="button" id="delete-btn" value="Delete" />
 			</div>
-		
+
 			<form action="/DropCube/logout" method="POST">
 				<input type="submit" value="Logout" />
 			</form>

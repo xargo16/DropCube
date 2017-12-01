@@ -13,10 +13,28 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd
 		">
 
+	<context:component-scan base-package="com.dave.dropcube" />
+
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<context:component-scan base-package="com.dave.dropcube" />
+	<!-- This interceptor is responsible for disable of cache in the browser. 
+		This is needed to provide proper action when user presses back button in 
+		the browser -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<bean id="webContentInterceptor"
+				class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+				<property name="cacheSeconds" value="0" />
+				<property name="useExpiresHeader" value="true" />
+				<property name="useCacheControlHeader" value="true" />
+				<property name="useCacheControlNoStore" value="true" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

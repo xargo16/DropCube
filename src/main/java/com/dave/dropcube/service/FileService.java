@@ -1,17 +1,20 @@
 package com.dave.dropcube.service;
 
-import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.util.List;
 
-import com.dave.dropcube.entity.UserFile;
+import com.dave.dropcube.entity.FileEntity;
 
 public interface FileService {
-	public void saveFile(UserFile file);
+	public void uploadFile(FileEntity file);
 
-	public UserFile getFile(int fileId);
+	public FileEntity getFile(int fileId);
 
-	public UserFile[] getAllFiles(int userId); //Get all files for specific user
+	public FileEntity getMultipleFiles(int[] listOfIds) throws IOException;
+
+	public List<FileEntity> getAllFiles(int userId);
 
 	public void deleteFile(int fileId);
-
-	public void deleteAllFiles(int userId); //Delete all files for specific user
+	
+	public void deleteMultipleFiles(int[] listOfIds);
 }

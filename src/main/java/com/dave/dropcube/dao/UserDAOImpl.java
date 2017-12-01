@@ -7,7 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.dave.dropcube.entity.User;
+import com.dave.dropcube.entity.UserEntity;
 
 /*
  * Implementation of UserDAO which is using JPA's 
@@ -19,7 +19,7 @@ public class UserDAOImpl implements UserDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void save(User user) {
+	public void save(UserEntity user) {
 		entityManager.persist(user);
 	}
 
@@ -27,15 +27,15 @@ public class UserDAOImpl implements UserDAO {
 	 * This method uses JPQL to find user from database by its email and
 	 * password
 	 */
-	public User login(String email, String password) {
+	public UserEntity login(String email, String password) {
 		Query query = entityManager.createNamedQuery("login");
 		query.setParameter("email", email);
 		query.setParameter("password", password);
 
-		User user = null;
+		UserEntity user = null;
 		try {
 			Object object = query.getSingleResult();
-			user = (User) object;
+			user = (UserEntity) object;
 		} catch (NoResultException n) {
 			/**
 			 * Making sure that when there is no matching result ugly exception

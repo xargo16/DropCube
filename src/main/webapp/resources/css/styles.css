@@ -52,7 +52,7 @@ a{
 	text-align: center;
 }
 
-.header h1 {
+.right-white-border {
 	border-right-style: solid;
 	border-right-width: 1px;
 	border-color: white;
