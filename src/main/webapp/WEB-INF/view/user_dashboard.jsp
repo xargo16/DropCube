@@ -12,10 +12,10 @@
 <body>
 	<noscript>
 		<style>
-			body {
-				display: none;
-			}
-		</style>
+body {
+	display: none;
+}
+</style>
 	</noscript>
 
 	<div class="columns">
@@ -30,6 +30,7 @@
 				</c:if>
 
 				<c:forEach items="${files}" var="file">
+
 					<div>
 						<input type="checkbox" class="file-checkbox"
 							id="check${file.fileId}" />
@@ -60,7 +61,8 @@
 		</div>
 		<div class="right-column">
 
-			<input type="search" name="search" placeholder="Search...">
+			<input type="search" id="search-field" name="search"
+				placeholder="Search...">
 
 
 			<form action="/DropCube/user/addFile" method="POST"
