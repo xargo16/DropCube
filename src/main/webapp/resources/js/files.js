@@ -90,11 +90,6 @@ $(function() {
 		
 		
 		$noFileSelectedHeader.remove(); 
-	
-
-		/**
-		$fileTitleHeader.hide().text(selectedFileTitle).fadeIn(300);
-		*/
 			
 		$fileTitleHeader.hide().text(idsOfFilesToDownload).fadeIn(300);
 	});

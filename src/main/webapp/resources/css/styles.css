@@ -417,6 +417,14 @@ input[type=text], input[type=password] {
 	top:50px;
 }
 
+/* Register form */
+.invalid-input{
+	background-color: rgba(255, 0, 0, 0.4);
+}
+.valid-input{
+	background-color: rgba(0, 255, 0, 0.2);
+}
+
 /* Various */
 .error{
     color: #FF0000;

@@ -61,8 +61,8 @@ public class RegistrationFormValidator {
 	}
 
 	private void checkPassword(String password) {
-		if (password.length() == 0) {
-			errors.add("password");
+		if (password.length() < 8) {
+			errors.add("password length");
 		}
 	}
 }
