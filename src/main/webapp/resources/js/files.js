@@ -10,6 +10,8 @@ $(function() {
 	 */
 	var $noFileSelectedHeader = $(".middle-column .no-file-selected");
 	var $fileTitleHeader = $("#file-title");
+	var $fileUploadDateHeader = $("#file-upload-date");
+	var $fileContent = $(".file-content-container");
 
 	/*
 	 * Elements in the right column in user_dashboard.jsp
@@ -25,12 +27,15 @@ $(function() {
 	 */
 	var numberOfSelectedFiles = 0;
 	var selectedFileTitle = "";
+	var selectedFileUploadDate = "";
+	var selectedFileContentType = "";
 	var idsOfFilesToDownload = [];
+	var idOfFileWhichDescriptionIsShown = -1;
 
 	/**
 	 * When user toogle checkbox next to the file
 	 */
-	$checkboxesNextToFiles.on("change", function() {
+	$checkboxesNextToFiles.on("change", function(event) {
 		var fileId = this.id.replace("check", "");
 
 		if (numberOfSelectedFiles < 0)
@@ -40,8 +45,8 @@ $(function() {
 			idsOfFilesToDownload.push(fileId);
 			numberOfSelectedFiles++;
 		} else {
-			var indexOfId = idsOfFilesToDownload.indexOf(fileId);
-			idsOfFilesToDownload.splice(indexOfId, 1);
+			var indexOfFile = idsOfFilesToDownload.indexOf(fileId);
+			idsOfFilesToDownload.splice(indexOfFile, 1);
 			numberOfSelectedFiles--;
 		}
 
@@ -51,7 +56,6 @@ $(function() {
 			hideDownloadAndDeleteButton();
 		}
 
-		$fileTitleHeader.hide().text(idsOfFilesToDownload).fadeIn(300);
 	});
 	function hideDownloadAndDeleteButton() {
 		$downloadDeleteButtonContainer.addClass("hidden");
@@ -70,6 +74,7 @@ $(function() {
 	}
 
 	$files.on("click", function() {
+		idOfFileWhichDescriptionIsShown = this.id;
 		var idOfCheckboxNextToClickedButton = "check" + this.id;
 		var $checkboxForThisFile = $("#" + idOfCheckboxNextToClickedButton);
 
@@ -81,6 +86,10 @@ $(function() {
 		 */
 		selectedFileTitle = $(this).children("input[name='data-title']").attr(
 				"value");
+		selectedFileUploadDate = $(this).children(
+				"input[name='data-upload-date']").attr("value");
+		selectedFileContentType = $(this).children(
+				"input[name='data-content-type']").attr("value");
 
 		switchOffEveryCheckbox();
 
@@ -91,13 +100,83 @@ $(function() {
 
 		$noFileSelectedHeader.remove();
 
-		$fileTitleHeader.hide().text(idsOfFilesToDownload).fadeIn(300);
+		$fileTitleHeader.hide().text(selectedFileTitle).fadeIn(300);
+		$fileUploadDateHeader.hide().text("Uploaded: " + selectedFileUploadDate).fadeIn(300);
+		highlightSelectedFile(this.id);
+		getFileContent(this.id);
 	});
 
 	function switchOffEveryCheckbox() {
 		$checkboxesNextToFiles.prop("checked", false);
 		numberOfSelectedFiles = 0;
+	}
 
+	function highlightSelectedFile(fileId) {
+		var $selectedFile = $("#" + fileId);
+
+		$files.not($selectedFile).removeClass("file-selected");
+		$selectedFile.addClass("file-selected");
+	}
+
+	function getFileContent(fileId) {
+		var optionToChooseDependingOnFileContent = "";
+
+		if (selectedFileContentType.indexOf("text") != -1)
+			optionToChooseDependingOnFileContent = "text";
+		else if (selectedFileContentType.indexOf("application") != -1)
+			optionToChooseDependingOnFileContent = "application";
+		else if (selectedFileContentType.indexOf("image") != -1)
+			optionToChooseDependingOnFileContent = "image";
+		else if (selectedFileContentType.indexOf("audio") != -1)
+			optionToChooseDependingOnFileContent = "audio";
+		else if (selectedFileContentType.indexOf("video") != -1)
+			optionToChooseDependingOnFileContent = "video";
+		else
+			optionToChooseDependingOnFileContent = "unsupported";
+
+		$fileContent.empty();
+
+		switch (optionToChooseDependingOnFileContent) {
+		case 'text':
+			$.ajax({
+				url : "user/" + fileId,
+				cache : false,
+				success : function(result) {
+					$fileContent.append("<p>" + result + "</p>");
+				}
+			});
+			break;
+		case 'application':
+			$.ajax({
+				url : "user/" + fileId,
+				cache : false,
+				success : function(result) {
+					$fileContent.append("<p>" + result + "</p>");
+				}
+			});
+			break;
+		case 'image':
+			$fileContent
+					.append("<img width='100%' height='auto' class='center' src=user/"
+							+ fileId + " />");
+			break;
+
+		case 'audio':
+			var element = "<audio controls class='center'> <source src=user/"
+					+ fileId + " type='audio/mp3'> </audio>";
+			$fileContent.append(element);
+			break;
+
+		case 'video':
+			var element = "<video controls class='center'> <source src=user/"
+					+ fileId + " type='audio/mp3'> </video>";
+			$fileContent.append(element);
+			break;
+
+		default:
+			var element = "<p>Can't preview the file content!</p>";
+			$fileContent.append(element);
+		}
 	}
 
 	$("#id-upload-btn").on("change", function() {
@@ -106,7 +185,7 @@ $(function() {
 
 	$downloadButton.on("click", function() {
 		var url = idsOfFilesToDownload;
-		window.location.href = "user/" + url;
+		window.location.href = "user/download/" + url;
 	});
 
 	$deleteButton.on("click", function() {
@@ -126,7 +205,7 @@ $(function() {
 			if (!fileMatchingSearchString(filename, searchString)) {
 				$(this).hide();
 				$(this).prev().hide();
-			}else{
+			} else {
 				$(this).show();
 				$(this).prev().show();
 			}

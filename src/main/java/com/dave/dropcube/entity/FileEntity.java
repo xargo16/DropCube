@@ -31,10 +31,10 @@ public class FileEntity {
 	private String name;
 
 	@Column(nullable = false)
-	@Basic(fetch = FetchType.LAZY)
 	private String contentType;
 
 	@Column(nullable = false, length = 920971520)
+	@Basic(fetch = FetchType.LAZY)
 	private byte[] content;
 
 	public UserEntity getUserEntity() {

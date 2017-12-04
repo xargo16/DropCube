@@ -37,6 +37,8 @@ body {
 					</div>
 					<div class="file" id="${file.fileId}">
 						<input type="hidden" name="data-title" value="${file.name }" />
+						<input type="hidden" name="data-upload-date" value="${file.dateOfUpload }" />
+						<input type="hidden" name="data-content-type" value="${file.contentType }" />
 						<p>${file.name }</p>
 					</div>
 					<br>
@@ -51,8 +53,11 @@ body {
 				<div class="file-title-container">
 					<h1 id="file-title"></h1>
 				</div>
-				<div class="file-data-container"></div>
-				<div class="file-meta-data-container"></div>
+				<div class="file-content-container">
+				</div>
+				<div class="file-meta-data-container">
+					<h3 id="file-upload-date"></h3>
+				</div>
 			</div>
 
 			<h2 class="no-file-selected">Click any file on the left for

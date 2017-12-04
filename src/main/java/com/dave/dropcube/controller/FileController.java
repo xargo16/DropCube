@@ -56,21 +56,24 @@ public class FileController {
 		}
 		return "redirect:/index";
 	}
-
-	@RequestMapping(value = "/user/{fileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public void downloadFiles(@PathVariable("fileId") String urlFileId,
-			HttpServletResponse response, HttpSession session) throws IOException {
+	
+	@RequestMapping(value="/user/{fileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void getFileContent(@PathVariable("fileId") String urlFileId, HttpSession session, HttpServletResponse response) throws IOException{
 		UserEntity user = (UserEntity)session.getAttribute("user");
-		FileEntity file = null;
+		FileEntity file = getFileBasedOnUrlFileId(user, urlFileId);
 
-		if (urlPathVariablePointsToMultipleFiles(urlFileId)) {
-			int[] fileIds = convertIdsFromUrlPathVariableToIntArray(urlFileId);
-			file = fileService.getMultipleFiles(user, fileIds); // Zip file wrapped in
-															// FileEntity
+		byte[] requestedFilesBytes = file.getContent();
+		
+		response.getOutputStream().write(requestedFilesBytes);
+	    response.getOutputStream().flush();
+	    
+	}
 
-		} else {
-			file = fileService.getFile(user, Integer.parseInt(urlFileId));
-		}
+	@RequestMapping(value = "/user/download/{fileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void downloadFiles(@PathVariable("fileId") String urlFileId,
+			HttpSession session, HttpServletResponse response) throws IOException {
+		UserEntity user = (UserEntity)session.getAttribute("user");
+		FileEntity file = getFileBasedOnUrlFileId(user, urlFileId);
 
 		byte[] requestedFilesBytes = file.getContent();
 
@@ -79,7 +82,17 @@ public class FileController {
 				+ file.getName());
 		response.getOutputStream().write(requestedFilesBytes);
 	}
+	private FileEntity getFileBasedOnUrlFileId(UserEntity user, String urlFileId) throws IOException{
+		if (urlPathVariablePointsToMultipleFiles(urlFileId)) {
+			int[] fileIds = convertIdsFromUrlPathVariableToIntArray(urlFileId);
+			return fileService.getMultipleFiles(user, fileIds); // Zip file wrapped in
+															// FileEntity
 
+		} else {
+			return fileService.getFile(user, Integer.parseInt(urlFileId));
+		}
+	}
+	
 	@RequestMapping(value = "/user/delete/{fileId}")
 	public String deleteFiles(@PathVariable("fileId") String urlFileId, HttpSession session,
 			Model model) {
