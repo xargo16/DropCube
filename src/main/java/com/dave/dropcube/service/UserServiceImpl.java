@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public List<FileEntity> getUserFiles(UserEntity user) {
-		return fileService.getAllFiles(user.getUserId());
+		return fileService.getAllFiles(user);
 	}
 
 }

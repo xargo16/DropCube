@@ -9,13 +9,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "files")
-@NamedQuery(query = "SELECT f FROM FileEntity f", name = "getAllFiles")
+@NamedQuery(query = "SELECT f FROM FileEntity f WHERE f.userEntity = :user", name = "getAllFiles")
 public class FileEntity {
+	@ManyToOne
+	UserEntity userEntity;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int fileId;
@@ -27,11 +31,19 @@ public class FileEntity {
 	private String name;
 
 	@Column(nullable = false)
-	@Basic(fetch=FetchType.LAZY)
+	@Basic(fetch = FetchType.LAZY)
 	private String contentType;
 
 	@Column(nullable = false, length = 920971520)
 	private byte[] content;
+
+	public UserEntity getUserEntity() {
+		return userEntity;
+	}
+
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
 
 	public int getFileId() {
 		return fileId;

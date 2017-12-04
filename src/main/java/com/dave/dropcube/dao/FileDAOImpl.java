@@ -5,10 +5,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import com.dave.dropcube.entity.FileEntity;
+import com.dave.dropcube.entity.UserEntity;
 
 @Repository
 public class FileDAOImpl implements FileDAO {
@@ -16,14 +18,17 @@ public class FileDAOImpl implements FileDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@Override
 	public void save(FileEntity file) {
 		entityManager.persist(file);
 	}
 
+	@Override
 	public FileEntity getFile(int fileId) {
 		return entityManager.find(FileEntity.class, fileId);
 	}
 
+	@Override
 	public List<FileEntity> getMultipleFiles(int[] filesIds) {
 		List<FileEntity> files = new ArrayList();
 		for (int id : filesIds) {
@@ -33,12 +38,15 @@ public class FileDAOImpl implements FileDAO {
 		return files;
 	}
 
-	public List<FileEntity> getAllFiles(int userId) {
-		List<FileEntity> files = entityManager.createNamedQuery("getAllFiles",
-				FileEntity.class).getResultList();
+	@Override
+	public List<FileEntity> getAllFiles(UserEntity user) {
+		Query query = entityManager.createNamedQuery("getAllFiles", FileEntity.class);
+		query.setParameter("user", user);
+		List<FileEntity> files = query.getResultList();
 		return files;
 	}
 
+	@Override
 	public void deleteFile(int fileId) {
 		FileEntity file = entityManager.find(FileEntity.class, fileId);
 		entityManager.remove(file);

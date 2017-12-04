@@ -1,11 +1,15 @@
 package com.dave.dropcube.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +19,8 @@ public class UserEntity {
 	public enum Role {
 		USER, ADMIN;
 	}
+	@OneToMany(mappedBy="userEntity")
+	List<FileEntity> files = new ArrayList<FileEntity>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

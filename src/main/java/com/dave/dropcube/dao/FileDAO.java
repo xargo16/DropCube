@@ -3,6 +3,7 @@ package com.dave.dropcube.dao;
 import java.util.List;
 
 import com.dave.dropcube.entity.FileEntity;
+import com.dave.dropcube.entity.UserEntity;
 
 public interface FileDAO {
 	public void save(FileEntity file);
@@ -11,7 +12,7 @@ public interface FileDAO {
 
 	public List<FileEntity> getMultipleFiles(int[] filesIds);
 
-	public List<FileEntity> getAllFiles(int userId);
+	public List<FileEntity> getAllFiles(UserEntity user);
 
 	public void deleteFile(int fileId);
 	
