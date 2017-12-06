@@ -3,12 +3,12 @@ $(function() {
 	 * Elements in the left column in user_dashboard.jsp
 	 */
 	var $checkboxesNextToFiles = $(".file-checkbox");
-	var $files = $(".file");
+	var $files = $(".file-container");
 
 	/*
 	 * Elements in the middle column in user_dashboard.jsp
 	 */
-	var $noFileSelectedHeader = $(".middle-column .no-file-selected");
+	var $noFileSelectedHeader = $(".middle-column-container .no-file-selected");
 	var $fileTitleHeader = $("#file-title");
 	var $fileUploadDateHeader = $("#file-upload-date");
 	var $fileContent = $(".file-content-container");
@@ -35,25 +35,30 @@ $(function() {
 	/**
 	 * When user toogle checkbox next to the file
 	 */
-	$checkboxesNextToFiles.on("change", function(event) {
+	$checkboxesNextToFiles.on("change", function() {
 		var fileId = this.id.replace("check", "");
 
-		if (numberOfSelectedFiles < 0)
-			numberOfSelectedFiles = 0;
-
-		if (this.checked) {
-			idsOfFilesToDownload.push(fileId);
-			numberOfSelectedFiles++;
+		if (idOfFileWhichDescriptionIsShown == -1) {
+			$("#" + fileId).trigger("click");
 		} else {
-			var indexOfFile = idsOfFilesToDownload.indexOf(fileId);
-			idsOfFilesToDownload.splice(indexOfFile, 1);
-			numberOfSelectedFiles--;
-		}
+			if (numberOfSelectedFiles < 0)
+				numberOfSelectedFiles = 0;
 
-		if (numberOfSelectedFiles > 0) {
-			showDownloadAndDeleteButton();
-		} else {
-			hideDownloadAndDeleteButton();
+			if (this.checked) {
+				idsOfFilesToDownload.push(fileId);
+				numberOfSelectedFiles++;
+			} else {
+				var indexOfFile = idsOfFilesToDownload.indexOf(fileId);
+				idsOfFilesToDownload.splice(indexOfFile, 1);
+				numberOfSelectedFiles--;
+			}
+
+			if (numberOfSelectedFiles > 0) {
+				showDownloadAndDeleteButton();
+			} else {
+				hideDownloadAndDeleteButton();
+
+			}
 		}
 
 	});
@@ -62,8 +67,17 @@ $(function() {
 	}
 	function showDownloadAndDeleteButton() {
 		$downloadDeleteButtonContainer.removeClass("hidden");
-		if (numberOfSelectedFiles == 1)
+		if (numberOfSelectedFiles == 1){
+			$checkboxesNextToFiles.each(function(){
+				if($(this).is(":checked")){
+					var fileId = this.id.replace("check", "");
+					selectedFileTitle = $("#" + fileId).children("input[name='data-title']").attr(
+					"value");
+					
+				}
+			});
 			setNumberOfFilesHeaderContent(selectedFileTitle);
+		}
 		else
 			setNumberOfFilesHeaderContent(numberOfSelectedFiles
 					+ " Files selected");
@@ -101,7 +115,8 @@ $(function() {
 		$noFileSelectedHeader.remove();
 
 		$fileTitleHeader.hide().text(selectedFileTitle).fadeIn(300);
-		$fileUploadDateHeader.hide().text("Uploaded: " + selectedFileUploadDate).fadeIn(300);
+		$fileUploadDateHeader.hide()
+				.text("Uploaded: " + selectedFileUploadDate).fadeIn(300);
 		highlightSelectedFile(this.id);
 		getFileContent(this.id);
 	});
@@ -123,7 +138,9 @@ $(function() {
 
 		if (selectedFileContentType.indexOf("text") != -1)
 			optionToChooseDependingOnFileContent = "text";
-		else if (selectedFileContentType.indexOf("application") != -1)
+		else if (selectedFileContentType.indexOf("application") != -1 && 
+				(selectedFileContentType.indexOf("application/zip") == -1 
+						&& selectedFileContentType.indexOf("application/pdf") == -1))
 			optionToChooseDependingOnFileContent = "application";
 		else if (selectedFileContentType.indexOf("image") != -1)
 			optionToChooseDependingOnFileContent = "image";
@@ -157,18 +174,18 @@ $(function() {
 			break;
 		case 'image':
 			$fileContent
-					.append("<img width='100%' height='auto' class='center' src=user/"
+					.append("<img width='100%' height='auto' class='centered' src=user/"
 							+ fileId + " />");
 			break;
 
 		case 'audio':
-			var element = "<audio controls class='center'> <source src=user/"
+			var element = "<audio controls style='outline:none; width:100%; height:100%;' class='centered'> <source src=user/"
 					+ fileId + " type='audio/mp3'> </audio>";
 			$fileContent.append(element);
 			break;
 
 		case 'video':
-			var element = "<video controls class='center'> <source src=user/"
+			var element = "<video controls  style='outline:none; width:100%; height:100%;' class='centered'> <source src=user/"
 					+ fileId + " type='audio/mp3'> </video>";
 			$fileContent.append(element);
 			break;

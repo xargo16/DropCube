@@ -5,7 +5,7 @@
 <head>
 
 <link rel="stylesheet" type="text/css"
-	href='<c:url value="/resources/css/styles.css" />' />
+	href='<c:url value="/resources/css/landing_page.css" />' />
 </head>
 <body>
 	<jsp:include page="include/header.jsp" />
@@ -14,7 +14,6 @@
 	
 
 	<div id="content" class="content">
-		<div class="centered">
 			<c:if test="${param.act eq 'reg'}">
 				<h1 class="success" id="register">User Registered Successfully.
 					Please login</h1>
@@ -23,7 +22,6 @@
 				<h1 class="success" id="logout">We hope to see you soon!</h1>
 			</c:if>
 			<jsp:include page="include/login.jsp" />
-		</div>
 	</div>
 
 	<jsp:include page="include/footer.jsp" />

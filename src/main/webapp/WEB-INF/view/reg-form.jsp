@@ -8,15 +8,15 @@
 <script src='<c:url value="/resources/js/register.js" />'></script>
 
 <link rel="stylesheet" type="text/css"
-	href='<c:url value="/resources/css/styles.css" />' />
+	href='<c:url value="/resources/css/landing_page.css" />' />
 </head>
 <body>
 	<jsp:include page="include/header.jsp" />
 	<jsp:include page="include/menu.jsp" />
 	<jsp:include page="include/no_javascript.jsp" />
 
-	<div id="content" class="content register">
-		<div class="centered">
+	<div id="content" class="content">
+		<div class="form">
 			<c:if test="${err!=null}">
 				<h3 class="error">${err}</h3>
 			</c:if>

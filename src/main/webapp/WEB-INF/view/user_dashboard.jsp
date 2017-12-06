@@ -7,7 +7,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src='<c:url value="/resources/js/files.js" />'></script>
 <link rel="stylesheet" type="text/css"
-	href='<c:url value="/resources/css/styles.css" />' />
+	href='<c:url value="/resources/css/user_dashboard.css" />' />
 </head>
 <body>
 	<noscript>
@@ -18,45 +18,45 @@ body {
 </style>
 	</noscript>
 
-	<div class="columns">
-		<div class="left-column">
+	<div class="user-dashboard-container">
+		<div class="left-column-container">
 			<div class="header">
 				<h1>DropCube</h1>
 			</div>
-
-			<div class="list-of-files">
+			<div class="all-files-container">
 				<c:if test="${files == null}">
-					<h3 class="no-files">You didn't upload any files yet</h3>
+					<h3>You didn't upload any files yet</h3>
 				</c:if>
 
 				<c:forEach items="${files}" var="file">
 
-					<div>
+					<div class="file-checkbox-container">
 						<input type="checkbox" class="file-checkbox"
 							id="check${file.fileId}" />
 					</div>
-					<div class="file" id="${file.fileId}">
-						<input type="hidden" name="data-title" value="${file.name }" />
-						<input type="hidden" name="data-upload-date" value="${file.dateOfUpload }" />
-						<input type="hidden" name="data-content-type" value="${file.contentType }" />
+
+					<div class="file-container" id="${file.fileId}">
+						<input type="hidden" name="data-title" value="${file.name }" /> <input
+							type="hidden" name="data-upload-date"
+							value="${file.dateOfUpload }" /> <input type="hidden"
+							name="data-content-type" value="${file.contentType }" />
 						<p>${file.name }</p>
 					</div>
 					<br>
 				</c:forEach>
-
 			</div>
 		</div>
 
-		<div class="middle-column">
+		<div class="middle-column-container">
 
-			<div class="file-description-wrapper">
+			<div class="file-description-container">
 				<div class="file-title-container">
-					<h1 id="file-title"></h1>
+					<h2 id="file-title"></h2>
 				</div>
-				<div class="file-content-container">
-				</div>
+
+				<div class="file-content-container"></div>
 				<div class="file-meta-data-container">
-					<h3 id="file-upload-date"></h3>
+					<h4 id="file-upload-date"></h4>
 				</div>
 			</div>
 
@@ -64,11 +64,13 @@ body {
 				details!</h2>
 
 		</div>
-		<div class="right-column">
+		<div class="right-column-container">
 
 			<input type="search" id="search-field" name="search"
 				placeholder="Search...">
 
+
+			<!-------- File upload form ---------->
 
 			<form action="/DropCube/user/addFile" method="POST"
 				enctype="multipart/form-data">
@@ -107,8 +109,11 @@ body {
 					$('#download-error').delay(5000).fadeOut('slow');
 				</script>
 			</c:if>
+
 			<div class="hidden" id="download-delete-btn-container">
-				<h3 id="number-of-files-header">No files</h3>
+				<div class="number-of-files-container">
+					<h3 id="number-of-files-header">No files</h3>
+				</div>
 				<input type="button" id="download-btn" value="Download" /> <br>
 				<input type="button" id="delete-btn" value="Delete" />
 			</div>

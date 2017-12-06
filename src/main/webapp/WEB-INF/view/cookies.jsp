@@ -4,7 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href='<c:url value="/resources/css/styles.css" />' />
+	href='<c:url value="/resources/css/landing_page.css" />' />
 </head>
 <body>
 	<jsp:include page="include/header.jsp" />
@@ -14,7 +14,8 @@
 		<div class="centered">
 			<br>
 			<h1>Please turn on cookies to use our website!</h1>
-			<img width="60%" height="auto" src='<c:url value="/resources/img/cookie.png" />' alt="Enable cookies" />
+			<br>
+			<img width="40%" height="auto" src='<c:url value="/resources/img/cookie.png" />' alt="Enable cookies" />
 		</div>
 	</div>
 

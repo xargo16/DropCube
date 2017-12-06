@@ -2,7 +2,7 @@
 
 <h1>Enter your credentials</h1>
 
-<div>
+<div class="form">
 
 	<c:if test="${err!=null}">
 		<h3 class="error">${err}</h3>
