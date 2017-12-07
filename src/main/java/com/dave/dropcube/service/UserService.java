@@ -8,9 +8,10 @@ import com.dave.dropcube.exception.InvalidRegistrationDataException;
 
 public interface UserService {
 
-	public void register(UserEntity user) throws InvalidRegistrationDataException;
+	public void register(UserEntity user)
+			throws InvalidRegistrationDataException;
 
 	public UserEntity login(String email, String password);
-	
+
 	public List<FileEntity> getUserFiles(UserEntity user);
 }

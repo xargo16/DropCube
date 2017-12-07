@@ -30,7 +30,7 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public List<FileEntity> getMultipleFiles(int[] filesIds) {
-		List<FileEntity> files = new ArrayList();
+		List<FileEntity> files = new ArrayList<FileEntity>();
 		for (int id : filesIds) {
 			FileEntity file = entityManager.find(FileEntity.class, id);
 			files.add(file);
@@ -40,7 +40,8 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public List<FileEntity> getAllFiles(UserEntity user) {
-		Query query = entityManager.createNamedQuery("getAllFiles", FileEntity.class);
+		Query query = entityManager.createNamedQuery("getAllFiles",
+				FileEntity.class);
 		query.setParameter("user", user);
 		List<FileEntity> files = query.getResultList();
 		return files;

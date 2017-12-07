@@ -18,7 +18,7 @@
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<!-- This interceptor is responsible for disable of cache in the browser. 
+	<!-- This interceptor is responsible for disabling cache in the browser. 
 		This is needed to provide proper action when user presses back button in 
 		the browser -->
 	<mvc:interceptors>
@@ -76,7 +76,7 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	<!-- enable transactions based on annotations -->
+	<!-- Enable transactions based on annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 

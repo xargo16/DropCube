@@ -7,9 +7,8 @@
 	<session-config>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
-	
-	<display-name>Archetype Created Web Application</display-name>
 
+	<!-- Error pages -->
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404</location>
@@ -17,6 +16,10 @@
 	<error-page>
 		<error-code>500</error-code>
 		<location>/500</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/400</location>
 	</error-page>
 
 	<!-- Dispatcher Servlet configuration -->

@@ -72,7 +72,7 @@ body {
 
 			<!-------- File upload form ---------->
 
-			<form action="/DropCube/user/addFile" method="POST"
+			<form action="/DropCube/user/upload" method="POST"
 				enctype="multipart/form-data">
 				<c:if test="${param.err == 'upload'}">
 					<h3 class="error" id="upload-error">Error occured!</h3>

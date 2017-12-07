@@ -3,9 +3,6 @@ package com.dave.dropcube.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,48 +41,31 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute LoginCommand loginCommand, Model model,
 			HttpSession session) throws IOException {
-
-		String email = loginCommand.getEmail();
-		String password = loginCommand.getPassword();
-		UserEntity user = userService.login(email, password);
+		UserEntity user = userService.login(loginCommand.getEmail(),
+				loginCommand.getPassword());
 
 		if (user == null) {
 			model.addAttribute("err", "Invalid email or password");
 			return "index";
 		} else {
-			addUserInSession(user, session);
-			return "redirect:index";
+			session.setAttribute("user", user);
+			return "redirect:/user";
 		}
-	}
-
-	private void addUserInSession(UserEntity user, HttpSession session) {
-		session.setAttribute("user", user);
-		session.setAttribute("userId", user.getUserId());
-		session.setAttribute("userRole", user.getRole());
-
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession session) {
 		session.invalidate();
-
 		return "redirect:/index?act=lout";
-
 	}
 
-	@RequestMapping(value = "/register")
+	@RequestMapping("/register")
 	public String registerForm(HttpSession session) {
 		if (isUserLoggedIn(session))
 			return "redirect:/user";
 		return "reg-form";
 	}
 
-	/*
-	 * This method handles registration process.
-	 * InvalidRegistrationDataException is thrown when user provides invalid
-	 * data(email = 123 etc.) DataIntegrityViolationException is thrown when
-	 * email is already presented in database(User already exists)
-	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute UserCommand userCommand, Model model) {
 		try {
@@ -101,21 +81,17 @@ public class UserController {
 			return "reg-form";
 		}
 
-		return "redirect:/index?act=reg"; // act=reg flag is used to show
-											// message
-											// to user in index page
+		return "redirect:/index?act=reg";
 	}
 
-	/*
-	 * This page is visible to logged in users
-	 */
 	@RequestMapping("/user")
 	public String userDashboard(HttpSession session, Model model) {
 		if (!isUserLoggedIn(session))
 			return "redirect:/index";
 
-		List<FileEntity> userFiles = userService
-				.getUserFiles((UserEntity) session.getAttribute("user"));
+		UserEntity user = (UserEntity) session.getAttribute("user");
+		List<FileEntity> userFiles = userService.getUserFiles(user);
+
 		if (userFiles.size() > 0)
 			model.addAttribute("files", userFiles);
 		return "user_dashboard";
@@ -127,8 +103,4 @@ public class UserController {
 		return false;
 	}
 
-	@RequestMapping(value = "/about")
-	public String about() {
-		return "about";
-	}
 }

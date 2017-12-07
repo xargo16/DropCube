@@ -5,38 +5,39 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.dave.dropcube.entity.FileEntity;
-import com.dave.dropcube.entity.UserEntity;
 
 /*
- * This class is responsible for detection if filename with the same name is already presented in database.
+ * This class is responsible for detection if filename with the same name is already present in database.
  * If the other file with the same name is already present, than (n) suffix is appended to new filename, where n
  * is number of duplicate.
  */
 public class FilenameDuplicationResolver {
 
-	public void changeFilenameIfOneIsAlreadyPresent(List<FileEntity> allUserFiles, FileEntity fileToCheck) {
-		UserEntity user = fileToCheck.getUserEntity();
-
+	public void changeFilenameIfOneIsAlreadyPresent(
+			List<FileEntity> allUserFiles, FileEntity fileToCheck) {
 		for (FileEntity tempFile : allUserFiles) {
 			if (tempFile.getName().equals(fileToCheck.getName())) {
 
-				String newFilename = getFilenameWithNumberSuffixInParenthesis(fileToCheck
-						.getName());
-				fileToCheck.setName(newFilename);
+				setFilenameWithNumberSuffixInParenthesis(fileToCheck);
 
+				// Recursion to check if new name is not already present in DB
+				// as well
 				changeFilenameIfOneIsAlreadyPresent(allUserFiles, fileToCheck);
 			}
 		}
 	}
 
-	private String getFilenameWithNumberSuffixInParenthesis(String filename) {
+	private void setFilenameWithNumberSuffixInParenthesis(FileEntity file) {
+		String currentFilename = file.getName();
 		String newFilename = null;
-		if (filenameHasAlreadyNumberInParenthesisSuffix(filename)) {
-			newFilename = getNewFilenameWithIncrementedNumberInParenthesisSuffix(filename);
+
+		if (filenameHasAlreadyNumberInParenthesisSuffix(currentFilename)) {
+			newFilename = getNewFilenameWithIncrementedNumberInParenthesisSuffix(currentFilename);
 		} else {
-			newFilename = getNewFilenameWithNumberOneInParenthesisSuffix(filename);
+			newFilename = getNewFilenameWithNumberOneInParenthesisSuffix(currentFilename);
 		}
-		return newFilename;
+
+		file.setName(newFilename);
 	}
 
 	private boolean filenameHasAlreadyNumberInParenthesisSuffix(String filename) {
@@ -52,6 +53,9 @@ public class FilenameDuplicationResolver {
 		Pattern pattern = Pattern
 				.compile(regexForGroupingFilenameWithNumberInParenthesisSuffixAndExtension);
 		Matcher matcher = pattern.matcher(filename);
+
+		// Group 1 - filename, Group 2 - parenthesis, Group 3 - number in
+		// parenthesis, Group 4 - extension
 		if (matcher.find()) {
 			String numberInParenthesis = matcher.group(3);
 			String newNumberInParenthesis = ""
@@ -70,6 +74,7 @@ public class FilenameDuplicationResolver {
 		String regexForGroupingFilenameAndExtension = "(.+)(\\..+)";
 		Pattern pattern = Pattern.compile(regexForGroupingFilenameAndExtension);
 		Matcher matcher = pattern.matcher(filename);
+		// Group 1 - filename, Group 2 - extension
 		if (matcher.find()) {
 			newFilename = matcher.group(1) + "(1)" + matcher.group(2);
 		}

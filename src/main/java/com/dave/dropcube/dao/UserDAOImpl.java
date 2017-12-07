@@ -9,24 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import com.dave.dropcube.entity.UserEntity;
 
-/*
- * Implementation of UserDAO which is using JPA's 
- * EntityManager to perform CRUD operations.
- */
 @Repository
 public class UserDAOImpl implements UserDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void save(UserEntity user) {
+	public void register(UserEntity user) {
 		entityManager.persist(user);
 	}
 
-	/**
-	 * This method uses JPQL to find user from database by its email and
-	 * password
-	 */
 	public UserEntity login(String email, String password) {
 		Query query = entityManager.createNamedQuery("login");
 		query.setParameter("email", email);

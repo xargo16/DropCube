@@ -23,18 +23,11 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void register(UserEntity user) throws InvalidRegistrationDataException {
 		RegistrationFormValidator registrationFormValidator = new RegistrationFormValidator();
-
-		assignRoleToUser(user, UserEntity.Role.USER);
 		registrationFormValidator.validateRegistrationFormData(user);
-
-		userDAO.save(user);
+		userDAO.register(user);
 	}
 
-	private void assignRoleToUser(UserEntity user, UserEntity.Role role) {
-		user.setRole(role);
-	}
-
-	@Transactional(readOnly = true)
+	@Transactional()
 	public UserEntity login(String email, String password) {
 		return userDAO.login(email, password);
 	}

@@ -11,12 +11,11 @@
 	<jsp:include page="include/menu.jsp" />
 
 	<div class="content">
-		<div class="centered">
-			<br>
+		
 			<h1>Sorry, but it seems that something went wrong.</h1>
-			<br>
+			
 			<img width="40%" height="auto" src='<c:url value="/resources/img/error.png" />' alt="error" />
-		</div>
+	
 	</div>
 
 
