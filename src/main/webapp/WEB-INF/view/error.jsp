@@ -9,16 +9,12 @@
 <body>
 	<jsp:include page="include/header.jsp" />
 	<jsp:include page="include/menu.jsp" />
-
-	<div class="content">
-		
-			<h1>Sorry, but it seems that something went wrong.</h1>
-			
-			<img width="40%" height="auto" src='<c:url value="/resources/img/error.png" />' alt="error" />
 	
+	<div class="content">
+		<h1>Sorry, but it seems that something went wrong.</h1>
+		<img width="40%" height="auto" src='<c:url value="/resources/img/error.png" />' alt="error" />
 	</div>
-
-
+	
 	<jsp:include page="include/footer.jsp" />
 </body>
 </html>

@@ -11,14 +11,9 @@
 	<jsp:include page="include/menu.jsp" />
 
 	<div class="content">
-		<div class="centered">
-			<br>
-			<h1>Please turn on cookies to use our website!</h1>
-			<br>
-			<img width="40%" height="auto" src='<c:url value="/resources/img/cookie.png" />' alt="Enable cookies" />
-		</div>
+		<h1>Please turn on cookies to use our website!</h1>
+		<img width="40%" height="auto" src='<c:url value="/resources/img/cookie.png" />' alt="Turn on cookies" />
 	</div>
-
 
 	<jsp:include page="include/footer.jsp" />
 </body>

@@ -3,19 +3,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src='<c:url value="/resources/js/files.js" />'></script>
-<link rel="stylesheet" type="text/css"
-	href='<c:url value="/resources/css/user_dashboard.css" />' />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src='<c:url value="/resources/js/files.js" />'></script>
+	<link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/user_dashboard.css" />' />
 </head>
 <body>
 	<noscript>
 		<style>
-body {
-	display: none;
-}
-</style>
+			body {
+				display: none;
+			}
+		</style>
 	</noscript>
 
 	<div class="user-dashboard-container">
@@ -29,17 +27,14 @@ body {
 				</c:if>
 
 				<c:forEach items="${files}" var="file">
-
 					<div class="file-checkbox-container">
-						<input type="checkbox" class="file-checkbox"
-							id="check${file.fileId}" />
+						<input type="checkbox" class="file-checkbox" id="check${file.fileId}" />
 					</div>
-
+					
 					<div class="file-container" id="${file.fileId}">
-						<input type="hidden" name="data-title" value="${file.name }" /> <input
-							type="hidden" name="data-upload-date"
-							value="${file.dateOfUpload }" /> <input type="hidden"
-							name="data-content-type" value="${file.contentType }" />
+						<input type="hidden" name="data-title" value="${file.name }"/> 
+						<input type="hidden" name="data-upload-date" value="${file.dateOfUpload }"/> 
+						<input type="hidden" name="data-content-type" value="${file.contentType }" />
 						<p>${file.name }</p>
 					</div>
 					<br>
@@ -48,7 +43,6 @@ body {
 		</div>
 
 		<div class="middle-column-container">
-
 			<div class="file-description-container">
 				<div class="file-title-container">
 					<h2 id="file-title"></h2>
@@ -60,49 +54,41 @@ body {
 				</div>
 			</div>
 
-			<h2 class="no-file-selected">Click any file on the left for
-				details!</h2>
-
+			<h2 class="no-file-selected">Click any file on the left for details!</h2>
 		</div>
+		
 		<div class="right-column-container">
-
-			<input type="search" id="search-field" name="search"
-				placeholder="Search...">
-
+			<input type="search" id="search-field" name="search" placeholder="Search...">
 
 			<!-------- File upload form ---------->
-
-			<form action="/DropCube/user/upload" method="POST"
-				enctype="multipart/form-data">
+			<form action="/DropCube/user/upload" method="POST" enctype="multipart/form-data">
 				<c:if test="${param.err == 'upload'}">
 					<h3 class="error" id="upload-error">Error occured!</h3>
 					<script>
 						$('#upload-error').delay(5000).fadeOut('slow');
 					</script>
 				</c:if>
+				
 				<c:if test="${param.act == 'success' }">
 					<h3 class="success" id="upload-complete">Upload complete!</h3>
-
 					<script>
 						$('#upload-complete').delay(5000).fadeOut('slow');
 					</script>
-
 				</c:if>
 
 				<div class="upload-btn-wrapper">
-					<span class="upload-span">Upload files</span> <input type="file"
-						id="id-upload-btn" name="file" multiple />
+					<span class="upload-span">Upload files</span> 
+					<input type="file" id="id-upload-btn" name="file" multiple />
 				</div>
 			</form>
 
 			<c:if test="${param.delete != null}">
-				<h3 class="success" id="delete-success">
-					<c:out value='${param.delete }' />
-				</h3>
+				<h3 class="success" id="delete-success">${param.delete }</h3>
 				<script>
 					$('#delete-success').delay(5000).fadeOut('slow');
 				</script>
 			</c:if>
+			
 			<c:if test="${param.err == 'download'}">
 				<h3 class="error" id="download-error">Error occured!</h3>
 				<script>

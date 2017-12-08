@@ -3,25 +3,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<link rel="stylesheet" type="text/css"
-	href='<c:url value="/resources/css/landing_page.css" />' />
-</head>
+	<link rel="stylesheet" type="text/css"
+		href='<c:url value="/resources/css/landing_page.css" />' />
+	</head>
 <body>
 	<jsp:include page="include/header.jsp" />
 	<jsp:include page="include/menu.jsp" />
 	<jsp:include page="include/no_javascript.jsp" />
-	
 
 	<div id="content" class="content">
-			<c:if test="${param.act eq 'reg'}">
-				<h1 class="success" id="register">User Registered Successfully.
-					Please login</h1>
-			</c:if>
-			<c:if test="${param.act eq 'lout'}">
-				<h1 class="success" id="logout">We hope to see you soon!</h1>
-			</c:if>
-			<jsp:include page="include/login.jsp" />
+		<c:if test="${param.act eq 'reg'}">
+			<h1 class="success" id="register">User Registered Successfully.
+				Please login</h1>
+		</c:if>
+		<c:if test="${param.act eq 'lout'}">
+			<h1 class="success" id="logout">We hope to see you soon!</h1>
+		</c:if>
+		<jsp:include page="include/login.jsp" />
 	</div>
 
 	<jsp:include page="include/footer.jsp" />

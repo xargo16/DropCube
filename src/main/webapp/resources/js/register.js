@@ -6,16 +6,16 @@ $(function() {
 	var $lastName = $("#last-name");
 
 	var $email = $("#email");
-	var $invalidEmailText = $("#email-invalid");
+	var $invalidEmail = $("#email-invalid");
 
 	var $password = $("#password");
 	var $invalidPassword = $("#password-invalid");
 
 	var $submitButton = $("#register-submit");
+	
 	/**
 	 * Functions
 	 */
-
 	function isFirstNameValid(firstName) {
 		return firstName.length > 0;
 	}
@@ -26,18 +26,18 @@ $(function() {
 	function validateEmail() {
 		var emailContent = $email.val();
 		if (isEmailValid(emailContent)) {
-			$invalidEmailText.text("");
+			$invalidEmail.text("");
 			$email.attr("class", "valid-input");
 		} else {
-			$invalidEmailText.css("color", "red");
-			$invalidEmailText.text("INVALID!");
+			$invalidEmail.css("color", "red");
+			$invalidEmail.text("INVALID!");
 			$email.attr('class', 'invalid-input');
 		}
 
 	}
+	
 	function isEmailValid(email) {
 		var regexForProperEmail = new RegExp("[a-zA-Z0-9._%-+]+@[a-zA-Z0-9-.]+");
-
 		return regexForProperEmail.test(email);
 	}
 
@@ -53,16 +53,15 @@ $(function() {
 		}
 
 	}
+	
 	function isPasswordValid(password) {
 		var minimumLengthOfPassword = 8;
-
 		return password.length >= minimumLengthOfPassword;
 	}
 
 	/**
-	 * Events handling
+	 * Event handlers
 	 */
-
 	$firstName.on("blur", function() {
 		var firstName = $firstName.val();
 		if (isFirstNameValid(firstName)) {
@@ -86,6 +85,7 @@ $(function() {
 			validateEmail();
 		}
 	});
+	
 	$email.on("blur", function() {
 		validateEmail();
 	});

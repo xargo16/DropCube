@@ -19,7 +19,7 @@ p {
 	text-align: center;
 }
 
-/* Column with DropCube header and files uploaded by user */
+/* Column with list of files */
 .left-column-container {
 	position: relative;
 	top: 10%;
@@ -39,10 +39,6 @@ p {
 	z-index: 1;
 }
 
-/* To make sure that checkbox and its file are next to each other */
-.all-files-container div {
-	display: inline-block;
-}
 /* You didn't upload any files yet (header) */
 .left-column-container h3 {
 	color: rgb(211, 211, 211);
@@ -53,6 +49,11 @@ p {
 
 .all-files-container {
 	margin-top: 30px;
+}
+
+/* To make sure that checkbox and its file are next to each other */
+.all-files-container div {
+	display: inline-block;
 }
 
 .file-checkbox-container {
@@ -83,6 +84,7 @@ input[type='checkbox']:checked {
 }
 
 .file-container {
+	cursor: pointer;
 	width: 80%;
 	height: 50px;
 	padding-left: 5px;
@@ -95,12 +97,10 @@ input[type='checkbox']:checked {
 	-o-transition: background 0.3s linear;
 	-ms-transition: background 0.3s linear;
 	overflow: hidden;
-	transition: background 0.3s linear;
 }
 
 .file-container:hover {
 	background-color: rgb(70, 165, 60);
-	cursor: pointer;
 }
 
 .file-selected {
@@ -185,7 +185,7 @@ input[type='checkbox']:checked {
 	width: 99%;
 }
 
-/* right column -------------------*/
+/* Column with menu */
 .right-column-container {
 	position: fixed;
 	top: 0;

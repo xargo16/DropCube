@@ -18,7 +18,6 @@
 			<img width="40%" height="auto" src='<c:url value="/resources/img/t.png" />' alt="Troll face" />
 	</div>
 
-
 	<jsp:include page="include/footer.jsp" />
 </body>
 </html>

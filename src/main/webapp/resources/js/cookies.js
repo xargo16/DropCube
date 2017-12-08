@@ -1,7 +1,6 @@
 function areCookiesEnabled() {
 	document.cookie = "testcookie";
 	var cookieEnabled = document.cookie.indexOf("testcookie") != -1;
-
 	return cookieEnabled;
 }
 
