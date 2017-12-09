@@ -52,12 +52,4 @@ public class FileDAOImpl implements FileDAO {
 		FileEntity file = entityManager.find(FileEntity.class, fileId);
 		entityManager.remove(file);
 	}
-
-	@Override
-	public void deleteMultipleFiles(int[] filesIds) {
-		for (int id : filesIds) {
-			FileEntity file = entityManager.find(FileEntity.class, id);
-			entityManager.remove(file);
-		}
-	}
 }

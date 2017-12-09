@@ -23,8 +23,7 @@ public class FileServiceImpl implements FileService {
 	public void uploadFile(FileEntity file) {
 		List<FileEntity> allUserFiles = getAllFiles(file.getUserEntity());
 		FilenameDuplicationResolver filenameDuplicationResolver = new FilenameDuplicationResolver();
-		filenameDuplicationResolver.changeFilenameIfOneIsAlreadyPresent(
-				allUserFiles, file);
+		filenameDuplicationResolver.changeFilenameIfOneIsAlreadyPresent(allUserFiles, file);
 		fileDAO.save(file);
 	}
 
@@ -46,11 +45,9 @@ public class FileServiceImpl implements FileService {
 		List<FileEntity> files = fileDAO.getMultipleFiles(filesIds);
 		MultipleFileEntitiesToZipConverter converter = new MultipleFileEntitiesToZipConverter();
 		for (FileEntity file : files) {
-			throwForbiddenFileAccessExceptionIfFileDoesNotBelongToUser(user,
-					file);
+			throwForbiddenFileAccessExceptionIfFileDoesNotBelongToUser(user, file);
 		}
-		FileEntity file = converter
-				.packMultipleFileEntityObjectsInOneFileEntity(files);
+		FileEntity file = converter.packMultipleFileEntityObjectsInOneFileEntity(files);
 		return file;
 	}
 
@@ -64,17 +61,12 @@ public class FileServiceImpl implements FileService {
 	@Transactional
 	public void deleteMultipleFiles(UserEntity user, int[] filesIds) {
 		for (int fileId : filesIds) {
-			FileEntity file = fileDAO.getFile(fileId);
-			throwForbiddenFileAccessExceptionIfFileDoesNotBelongToUser(user,
-					file);
+			deleteFile(user, fileId);
 		}
-
-		fileDAO.deleteMultipleFiles(filesIds);
 	}
 
 	@Transactional
-	public FileEntity getFileBasedOnUrlResource(UserEntity user, String url)
-			throws IOException {
+	public FileEntity getFileBasedOnUrlResource(UserEntity user, String url) throws IOException {
 		if (urlResourcePointsToMultipleFiles(url)) {
 			int[] fileIds = convertIdsFromUrlResourceToIntArray(url);
 			return getMultipleFiles(user, fileIds);
@@ -94,13 +86,12 @@ public class FileServiceImpl implements FileService {
 		}
 	}
 
-	private boolean urlResourcePointsToMultipleFiles(String urlPathVariable) {
+	boolean urlResourcePointsToMultipleFiles(String urlPathVariable) {
 		String regexForDetectingMultipleFilesDownloadRequest = "\\d+,.+";
-		return urlPathVariable
-				.matches(regexForDetectingMultipleFilesDownloadRequest);
+		return urlPathVariable.matches(regexForDetectingMultipleFilesDownloadRequest);
 	}
 
-	private int[] convertIdsFromUrlResourceToIntArray(String url) {
+	int[] convertIdsFromUrlResourceToIntArray(String url) {
 		String[] stringFileIds = url.split(",");
 		int[] intFileIds = new int[stringFileIds.length];
 
@@ -110,8 +101,7 @@ public class FileServiceImpl implements FileService {
 		return intFileIds;
 	}
 
-	private void throwForbiddenFileAccessExceptionIfFileDoesNotBelongToUser(
-			UserEntity user, FileEntity file) {
+	void throwForbiddenFileAccessExceptionIfFileDoesNotBelongToUser(UserEntity user, FileEntity file) {
 		if (!(file.getUserEntity().getUserId() == user.getUserId()))
 			throw new ForbiddenFileAccessException();
 	}

@@ -22,36 +22,47 @@ public class RegistrationFormValidator {
 
 	public void validateRegistrationFormData(UserEntity user)
 			throws InvalidRegistrationDataException {
-		checkFirstName(user.getFirstName());
-		checkLastName(user.getLastName());
-		checkEmail(user.getEmail());
-		checkPassword(user.getPassword());
+		isFirstNameValid(user.getFirstName());
+		isLastNameValid(user.getLastName());
+		isEmailValid(user.getEmail());
+		isPasswordValid(user.getPassword());
 
 		if (errors.size() > 0) {
 			throwInvalidRegistrationDataExceptionWithProperErrorMessage();
 		}
 	}
 
-	private void checkFirstName(String firstName) {
-		if (firstName.length() == 0)
+	boolean isFirstNameValid(String firstName) {
+		if (firstName.length() == 0){
 			errors.add("first name");
+			return false;
+		}
+		return true;
 	}
 
-	private void checkLastName(String lastName) {
-		if (lastName.length() == 0)
+	boolean isLastNameValid(String lastName) {
+		if (lastName.length() == 0){
 			errors.add("last name");
+			return false;
+		}
+		return true;
 	}
 
-	private void checkEmail(String email) {
-		if (email.length() == 0 || !email.matches(emailValidationRegex))
+	boolean isEmailValid(String email) {
+		if (email.length() == 0 || !email.matches(emailValidationRegex)){
 			errors.add("email");
+			return false;
+		}
+		return true;
 
 	}
 
-	private void checkPassword(String password) {
+	boolean isPasswordValid(String password) {
 		if (password.length() < passwordMinimumLength) {
 			errors.add("password length");
+			return false;
 		}
+		return true;
 	}
 
 	private void throwInvalidRegistrationDataExceptionWithProperErrorMessage()

@@ -15,6 +15,4 @@ public interface FileDAO {
 	public List<FileEntity> getAllFiles(UserEntity user);
 
 	public void deleteFile(int fileId);
-	
-	public void deleteMultipleFiles(int[] filesIds);
 }

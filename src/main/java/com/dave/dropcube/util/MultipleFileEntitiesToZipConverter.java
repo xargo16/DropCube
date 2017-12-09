@@ -13,8 +13,7 @@ import com.dave.dropcube.entity.FileEntity;
  * to one FileEntity which content is zip file
  */
 public class MultipleFileEntitiesToZipConverter {
-	public FileEntity packMultipleFileEntityObjectsInOneFileEntity(
-			List<FileEntity> files) throws IOException {
+	public FileEntity packMultipleFileEntityObjectsInOneFileEntity(List<FileEntity> files) throws IOException {
 		ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
 		try (ZipOutputStream out = new ZipOutputStream(byteOut)) {
 			for (FileEntity file : files) {

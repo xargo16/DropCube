@@ -18,7 +18,8 @@ public class FilenameDuplicationResolver {
 		for (FileEntity tempFile : allUserFiles) {
 			if (tempFile.getName().equals(fileToCheck.getName())) {
 
-				setFilenameWithNumberSuffixInParenthesis(fileToCheck);
+				String filename = getNewFilenameWithNumberInParenthesisSuffix(fileToCheck.getName());
+				fileToCheck.setName(filename);
 
 				// Recursion to check if new name is not already present in DB
 				// as well
@@ -27,27 +28,23 @@ public class FilenameDuplicationResolver {
 		}
 	}
 
-	private void setFilenameWithNumberSuffixInParenthesis(FileEntity file) {
-		String currentFilename = file.getName();
+	String getNewFilenameWithNumberInParenthesisSuffix(String currentFilename) {
 		String newFilename = null;
-
-		if (filenameHasAlreadyNumberInParenthesisSuffix(currentFilename)) {
+		if (filenameHasNumberInParenthesisSuffix(currentFilename)) {
 			newFilename = getNewFilenameWithIncrementedNumberInParenthesisSuffix(currentFilename);
 		} else {
 			newFilename = getNewFilenameWithNumberOneInParenthesisSuffix(currentFilename);
 		}
 
-		file.setName(newFilename);
+		return newFilename;
 	}
 
-	private boolean filenameHasAlreadyNumberInParenthesisSuffix(String filename) {
+	boolean filenameHasNumberInParenthesisSuffix(String filename) {
 		String regexForMatchingFilenameWithNumberInParenthesisSuffix = "(.+)(\\((\\d+)\\))\\..+";
-		return filename
-				.matches(regexForMatchingFilenameWithNumberInParenthesisSuffix);
+		return filename.matches(regexForMatchingFilenameWithNumberInParenthesisSuffix);
 	}
 
-	private String getNewFilenameWithIncrementedNumberInParenthesisSuffix(
-			String filename) {
+	String getNewFilenameWithIncrementedNumberInParenthesisSuffix(String filename) {
 		String newFilename = null;
 		String regexForGroupingFilenameWithNumberInParenthesisSuffixAndExtension = "(.+)(\\((\\d+)\\))(\\..+)";
 		Pattern pattern = Pattern
@@ -68,8 +65,7 @@ public class FilenameDuplicationResolver {
 		return newFilename;
 	}
 
-	private String getNewFilenameWithNumberOneInParenthesisSuffix(
-			String filename) {
+	String getNewFilenameWithNumberOneInParenthesisSuffix(String filename) {
 		String newFilename = null;
 		String regexForGroupingFilenameAndExtension = "(.+)(\\..+)";
 		Pattern pattern = Pattern.compile(regexForGroupingFilenameAndExtension);
